@@ -20,7 +20,9 @@
 
 ## :house: About the project
 Aplicação completa de uma hamburgueria.
+
 Na criação da API foi utilizado Express, JWT, yup, a biblioteca uuid, e o Sequelize e Mongoose para fazer a conexão com os bancos de dados que são o Postgres e MongoDB.
+
 Na parte da tela do administrador , foi utilizado a biblioteca MUI para o uso dos ícones e criação das tabelas
 <br>
 
