@@ -25,7 +25,7 @@ class Database {
   }
   mongo() {
     this.mongoConnection = mongoose.connect(
-      'mongodb://localhost:27017/mongo',
+      'mongodb://mongo:36PvgC2TVjrWSaVsjG06@containers-us-west-67.railway.app:6631',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
