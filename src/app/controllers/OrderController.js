@@ -57,6 +57,9 @@ class OrderController {
       user: {
         id: request.userId,
         name: request.userName,
+        address: request.userAddress,
+        contact: request.userContact,
+        complement: request.userComplement,
       },
       products: editedProducts,
       status: 'Pedido realizado',

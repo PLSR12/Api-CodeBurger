@@ -19,6 +19,9 @@ class UserController {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
+      address: Yup.string().required(),
+      complement: Yup.string().required(),
+      contact: Yup.string().required(),
       password: Yup.string().required().min(6),
       admin: Yup.boolean(),
     })
@@ -31,7 +34,7 @@ class UserController {
       })
     }
 
-    const { name, email, password, admin } = request.body
+    const { name, email, password, address, complement, contact, admin } = request.body
 
     const userExists = await User.findOne({
       where: {
@@ -50,6 +53,9 @@ class UserController {
       name,
       email,
       password,
+      address,
+      complement,
+      contact,
       admin,
     })
 
@@ -57,6 +63,9 @@ class UserController {
       id: user.id,
       name,
       email,
+      address,
+      complement,
+      contact,
     })
   }
 }
