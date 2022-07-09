@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       contact: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       password_hash: {
