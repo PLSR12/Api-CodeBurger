@@ -18,6 +18,9 @@ export default (request, response, next) => {
       }
       request.userId = decoded.id
       request.userName = decoded.name
+      request.userAddress = decoded.address
+      request.userContact = decoded.contact
+      request.userComplement = decoded.complement
 
       return next()
     })

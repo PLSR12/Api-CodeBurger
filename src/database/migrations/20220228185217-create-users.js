@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -18,29 +18,38 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      complement: {
+        type: Sequelize.STRING,
+      },
+      contact: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       password_hash: {
-        type:Sequelize.STRING,
-        allowNull:false,
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      admin:{
-        type:Sequelize.BOOLEAN,
-        defaultValue:false,
-        allowNull:false
+      admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
       },
-      created_at:{
-        type:Sequelize.DATE,
-        allowNull:false
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
-      updated_at:{
-        type:Sequelize.DATE,
-        allowNull:false
-      }
-    });
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+    })
   },
 
   async down(queryInterface) {
-     await queryInterface.dropTable('users');
-
-  }
-
-};
+    await queryInterface.dropTable('users')
+  },
+}
