@@ -40,7 +40,7 @@ class CategoryController {
 
     const { id } = await Category.create({
       name,
-      path
+      path,
     })
 
     return response.status(201).json({
@@ -60,57 +60,71 @@ class CategoryController {
   }
 
   async update(request, response) {
-    try{
-    const schema = Yup.object().shape({
-      name: Yup.string(),
-    })
-
     try {
-      await schema.validateSync(request.body, { abortEarly: false })
-    } catch (err) {
-      return response.status(400).json({
-        error: err.errors,
+      const schema = Yup.object().shape({
+        name: Yup.string(),
       })
-    }
 
-    const { admin: isAdmin } = await User.findByPk(request.userId)
+      try {
+        await schema.validateSync(request.body, { abortEarly: false })
+      } catch (err) {
+        return response.status(400).json({
+          error: err.errors,
+        })
+      }
 
-    if (!isAdmin) {
-      return response.status(401).json()
-    }
+      const { admin: isAdmin } = await User.findByPk(request.userId)
 
-    const { name } = request.body
+      if (!isAdmin) {
+        return response.status(401).json()
+      }
 
-    const { id } = request.params
+      const { name } = request.body
 
-    const category = await Category.findByPk(id)
+      const { id } = request.params
 
-    if(!category) {
-      return response
-      .status(401)
-      .json({ error: 'Category not found, make sure your category id is correct'})
-    }
+      const category = await Category.findByPk(id)
 
-    let path 
-    if (request.file){
-      path = request.file.filename
-    }
+      if (!category) {
+        return response
+          .status(401)
+          .json({
+            error: 'Category not found, make sure your category id is correct',
+          })
+      }
 
-   await Category.update({
-      name,
-      path
-    },
-    
-    { where: { id } }
-    )
+      let path
+      if (request.file) {
+        path = request.file.filename
+      }
 
-    return response.status(200).json()
-    
-  } catch (err) {
-    
+      await Category.update(
+        {
+          name,
+          path,
+        },
+
+        { where: { id } }
+      )
+
+      return response.status(200).json()
+    } catch (err) {}
   }
-}
+
+  async delete(request, response) {
+    const id = request.params.id
+
+    const categoryId = await Category.findByPk(id)
+
+    if (!categoryId) {
+      return response.status(401).json({
+        error: 'category not found, verify your category Id is correct.',
+      })
+    } else {
+      await Category.destroy({ where: { id } })
+      response.status(200).json({ message: 'Deleted successfully' })
+    }
+  }
 }
 
 export default new CategoryController()
-

@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
-import Product from '../models/Product'
 import Category from '../models/Category'
+import Product from '../models/Product'
 import User from '../models/User'
 
 class ProductController {
@@ -54,6 +54,28 @@ class ProductController {
     return response.json(products)
   }
 
+  async show(request, response) {
+    const { id } = request.params
+
+    const product = await Product.findByPk(id, {
+      include: [
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name'],
+        },
+      ],
+    })
+
+    if (!product) {
+      return response.status(401).json({
+        error: 'articles not found, verify your articles Id is correct.',
+      })
+    }
+
+    return response.json(product)
+  }
+
   async update(request, response) {
     const schema = Yup.object().shape({
       name: Yup.string(),
@@ -105,6 +127,21 @@ class ProductController {
       { where: { id } }
     )
     return response.json(product)
+  }
+
+  async delete(request, response) {
+    const id = request.params.id
+
+    const productId = await Product.findByPk(id)
+
+    if (!productId) {
+      return response.status(401).json({
+        error: 'product not found, verify your product Id is correct.',
+      })
+    } else {
+      await Product.destroy({ where: { id } })
+      response.status(200).json({ message: 'Deleted successfully' })
+    }
   }
 }
 
