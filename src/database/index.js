@@ -24,10 +24,13 @@ class Database {
       )
   }
   mongo() {
-    this.mongoConnection = mongoose.connect('mongodb://localhost:27017', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
+    this.mongoConnection = mongoose.connect(
+      'mongodb://mongo:nH9kYSfdL4BgD66IQrsU@containers-us-west-77.railway.app:7726',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    )
   }
 }
 
